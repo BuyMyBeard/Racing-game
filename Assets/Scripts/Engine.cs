@@ -27,27 +27,27 @@ public class Engine : MonoBehaviour
     public void OnBrake(InputAction.CallbackContext context)
     {
         if (context.started)
-            gasInput = true;
+            brakeInput = true;
 
         else if (context.canceled)
-            gasInput = false;
+            brakeInput = false;
     }
 
     public void OnSteer(InputAction.CallbackContext context)
     {
-        if (context.started)
-            gasInput = true;
+        if (context.performed)
+            steerAngle = context.ReadValue<float>();
 
         else if (context.canceled)
-            gasInput = false;
+            steerAngle = 0;
     }
     public void OnDrift(InputAction.CallbackContext context)
     {
         if (context.started)
-            gasInput = true;
+            driftInput = true;
 
         else if (context.canceled)
-            gasInput = false;
+            driftInput = false;
     }
     // Update is called once per frame
     void Update()

@@ -7,7 +7,6 @@ public class Engine : MonoBehaviour
 {
     [SerializeField] WheelCollider[] frontWheels;
     [SerializeField] WheelCollider[] backWheels;
-    [SerializeField] float steerAngle = 0;
     [SerializeField] float frontWheelTorque = 1000;
     [SerializeField] float backWheelTorque = 1000;
     bool gasInput = false;
@@ -36,10 +35,10 @@ public class Engine : MonoBehaviour
     public void OnSteer(InputAction.CallbackContext context)
     {
         if (context.performed)
-            steerAngle = context.ReadValue<float>();
+            steerInput = context.ReadValue<float>();
 
         else if (context.canceled)
-            steerAngle = 0;
+            steerInput = 0;
     }
     public void OnDrift(InputAction.CallbackContext context)
     {

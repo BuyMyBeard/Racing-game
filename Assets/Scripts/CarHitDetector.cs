@@ -11,9 +11,9 @@ public class CarHitDetector : MonoBehaviour
         ragdoll = GetComponentInParent<Ragdoll>();
         carLayer = LayerMask.GetMask("Car");
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (carLayer.Contains(other.gameObject.layer))
+        if (carLayer.Contains(collision.collider.gameObject.layer))
         {
             ragdoll.EnableRagdoll();
         }

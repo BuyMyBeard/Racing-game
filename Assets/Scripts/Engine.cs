@@ -7,7 +7,9 @@ public class Engine : MonoBehaviour
     [SerializeField] WheelCollider[] frontWheels;
     [SerializeField] WheelCollider[] backWheels;
     [SerializeField] float steerAngle = 0;
-    // Start is called before the first frame update
+    [SerializeField] float frontWheelTorque = 1000;
+    [SerializeField] float backWheelTorque = 1000;
+     // Start is called before the first frame update
     void Awake()
     {
         foreach(var wheel in frontWheels)
@@ -21,11 +23,11 @@ public class Engine : MonoBehaviour
     {
         foreach(var wheel in frontWheels)
         {
-            wheel.motorTorque = 50;
+            wheel.motorTorque = frontWheelTorque;
         }
         foreach(var wheel in backWheels)
         {
-            wheel.motorTorque = 50;
+            wheel.motorTorque = backWheelTorque;
         }
     }
 

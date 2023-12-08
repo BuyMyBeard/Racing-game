@@ -26,14 +26,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.12219223, y: 0.696469, z: -0.12219223, w: 0.696469}
-  m_LocalPosition: {x: -5.68, y: 1.8800001, z: 0.19}
+  m_LocalRotation: {x: 0.04642454, y: 0.94874644, z: -0.1664532, w: 0.26460966}
+  m_LocalPosition: {x: -1.79, y: 1.8800001, z: 7.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3646954061371270765}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 19.902, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 19.902, y: 148.832, z: 0}
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -140,6 +140,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3374474453900846415, guid: e9be6b9d71ce20345b55b654f6eca5d9,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3879817418852141368, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_Layer
@@ -168,17 +173,17 @@ PrefabInstance:
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.137238
+      value: 4.6386127
       objectReference: {fileID: 0}
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3338661
+      value: -0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.7483497
+      value: -46.16
       objectReference: {fileID: 0}
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -327,6 +332,8 @@ MonoBehaviour:
   - {fileID: 4577160015536528305}
   - {fileID: 1913919128984128662}
   steerAngle: 0
+  frontWheelTorque: 1000
+  backWheelTorque: 1000
 --- !u!1 &4451745708332410350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8013316820124944228, guid: e9be6b9d71ce20345b55b654f6eca5d9,

@@ -18,12 +18,15 @@ public class Ragdoll : MonoBehaviour
     {
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach (var rigidbody in rigidbodies)
+        {
             rigidbody.isKinematic = true;
+            rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
 
         colliders = GetComponentsInChildren<Collider>();
         foreach (var collider in colliders)
         {
-            collider.isTrigger = true;
+            // collider.isTrigger = true;
             collider.AddComponent<CarHitDetector>();
         }
 
@@ -35,7 +38,7 @@ public class Ragdoll : MonoBehaviour
     public void EnableRagdoll()
     {
         if (IsRagdolling) return;
-        IsRagdolling = false;
+        IsRagdolling = true;
         animator.enabled = false;
         agent.enabled = false;
         foreach (var rigidbody in rigidbodies)

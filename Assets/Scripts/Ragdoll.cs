@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,11 +24,11 @@ public class Ragdoll : MonoBehaviour
             rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
 
-        colliders = GetComponentsInChildren<Collider>();
+        Collider[] tempColliders = GetComponentsInChildren<Collider>();
+        colliders = tempColliders.Skip(1).ToArray();
         foreach (var collider in colliders)
         {
-            // collider.isTrigger = true;
-            collider.AddComponent<CarHitDetector>();
+            collider.enabled = false;
         }
 
         animator = GetComponent<Animator>();
@@ -45,7 +46,7 @@ public class Ragdoll : MonoBehaviour
             rigidbody.isKinematic = false;
 
         foreach (var collider in colliders)
-            collider.isTrigger = false;
+            collider.enabled = true;
     }
     [ContextMenu("Reset")]
     public void ResetRagdoll()
@@ -58,6 +59,6 @@ public class Ragdoll : MonoBehaviour
             rigidbody.isKinematic = true;
 
         foreach (var collider in colliders)
-            collider.isTrigger = true;
+            collider.enabled = false;
     }
 }

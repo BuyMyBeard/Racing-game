@@ -57,7 +57,7 @@
                 {
                     "name": "negative",
                     "id": "f19373b9-40c6-4ec3-ad9f-06b241236e57",
-                    "path": "<Joystick>/stick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -68,7 +68,7 @@
                 {
                     "name": "positive",
                     "id": "424c7014-f7a2-4e5b-8c5e-45cd6960a22e",
-                    "path": "<Joystick>/stick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

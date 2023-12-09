@@ -11,7 +11,6 @@ public class Engine : MonoBehaviour
     [SerializeField] WheelCollider backLeft;
     [SerializeField] WheelCollider backRight;
     [SerializeField] TextMeshProUGUI speedometer;
-    [SerializeField] float maxSpeed = 67.3f;
     [SerializeField] float drag = 10;
     /// <summary>
     /// Current forward speed in m / s
@@ -90,7 +89,7 @@ public class Engine : MonoBehaviour
         currentSpeed = rb.velocity.magnitude;
         UpdateSpeedometer();
         Brake(brakeInput ? 20000 : 0);
-        Motor(gasInput && currentSpeed < maxSpeed ? 5000 : 0);
+        Motor(gasInput ? 5000 : 0);
         Steer(steerInput * 40);
         rb.AddForce(-rb.velocity * drag);
     }

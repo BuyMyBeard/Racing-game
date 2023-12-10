@@ -23,12 +23,17 @@ public class CameraMovement : MonoBehaviour
     [Tooltip("Time before camera drift starts kicking in")]
     [SerializeField] float driftTimer = 1;
 
+    [SerializeField] float driftMinSpeed = 10;
+
+    [SerializeField] float speedToReachMaxDrift = 10;
+
     [Range(0, 2)]
     [SerializeField] float followTargetVerticalOffset = 0;
 
     [SerializeField] float controllerSensitivity = 140;
     [SerializeField] float mouseSensitivity = 3;
     Vector2 lookInput = Vector2.zero;
+    Rigidbody rb;
 
     public void OnLook(InputAction.CallbackContext context)
     {
@@ -50,11 +55,12 @@ public class CameraMovement : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         followTarget.parent = null;
-        GetComponentInChildren<CinemachineVirtualCamera>().transform.parent = null;
+        rb = GetComponent<Rigidbody>();
+        //GetComponentInChildren<CinemachineVirtualCamera>().transform.parent = null;
     }
     void Update()
     {
-        followTarget.position = Vector3.Lerp(followTarget.position, transform.position + Vector3.up * followTargetVerticalOffset, Time.deltaTime * catchUpSpeed);
+        followTarget.position = transform.position;
         float appliedSens = GamepadActive ? controllerSensitivity : mouseSensitivity;
 
         // Quaternion * Quaternion is the same as applying rotation from second to first
@@ -73,32 +79,33 @@ public class CameraMovement : MonoBehaviour
 
         followTarget.transform.localEulerAngles = new Vector3(cameraAngles.x, cameraAngles.y, 0);
 
-        //ApplyCameraDrift();
+        ApplyCameraDrift();
     }
 
-    //private void ApplyCameraDrift()
-    //{
+    private void ApplyCameraDrift()
+    {
 
-    //    // Moves Camera behind the player when no look input is given
-    //    Vector3 movementDirection = characterController.velocity;
-    //    movementDirection.y = 0;
-    //    if (movementDirection.magnitude > 0 && inputInterface.Look.magnitude == 0)
-    //    {
-    //        driftTime += Time.deltaTime;
-    //        if (driftTime < driftTimer) return;
+        // Moves Camera behind the player when no look input is given
+        Vector3 movementDirection = rb.velocity;
+        movementDirection.y = 0;
+        if (lookInput.magnitude == 0)
+        {
+            driftTime += Time.deltaTime;
+            if (driftTime < driftTimer) return;
 
-    //        Vector2 camDirection = new Vector2(followTarget.transform.forward.x, followTarget.transform.forward.z);
-    //        Vector2 playerDirection = new Vector2(characterController.velocity.x, characterController.velocity.z).normalized;
+            Vector2 camDirection = new Vector2(followTarget.transform.forward.x, followTarget.transform.forward.z);
+            Vector2 playerDirection = new Vector2(rb.velocity.x, rb.velocity.z).normalized;
 
-    //        float dot = Vector2.Dot(playerDirection, camDirection);
+            float dot = Vector2.Dot(playerDirection, camDirection);
 
-    //        float dotFactor = (1 - Mathf.Abs(dot)) * Mathf.Clamp01((driftTime - driftTimer) / easeInTime);
-    //        Quaternion to = Quaternion.LookRotation(movementDirection, Vector3.up);
-    //        followTarget.transform.rotation = Quaternion.Lerp(followTarget.transform.rotation, to, Time.deltaTime * dotFactor * driftSpeed);
-    //    }
-    //    else
-    //        driftTime = 0;
-    //}
+            float dotFactor = (1 - Mathf.Abs(dot)) * Mathf.Clamp01((driftTime - driftTimer) / easeInTime);
+            float speedFactor = Mathf.Clamp(movementDirection.magnitude, 0, speedToReachMaxDrift) / speedToReachMaxDrift;
+            Quaternion to = Quaternion.LookRotation(movementDirection.normalized + Vector3.down * .5f, Vector3.up);
+            followTarget.transform.rotation = Quaternion.Lerp(followTarget.transform.rotation, to, Time.deltaTime * dotFactor * driftSpeed * speedFactor);
+        }
+        else
+            driftTime = 0;
+    }
     public void SyncFollowTarget()
     {
         followTarget.position = transform.position + Vector3.up * followTargetVerticalOffset;

@@ -11,7 +11,15 @@ public class Engine : MonoBehaviour
     [SerializeField] WheelCollider backLeft;
     [SerializeField] WheelCollider backRight;
     [SerializeField] TextMeshProUGUI speedometer;
+    [SerializeField] float forwardTorque = 20000;
+    [SerializeField] float backwardTorque = 3000;
+    [SerializeField] float brakeTorque = 5000;
     [SerializeField] float drag = 10;
+    [SerializeField] float maxSteerAngle = 40;
+    [SerializeField] float minSteerAngle = 5;
+    [SerializeField] float minSteerAngleSpeed = 60;
+    [SerializeField] float steerSpeed = 40;
+    [SerializeField] float speedToConsiderStationary = .5f;
     /// <summary>
     /// Current forward speed in m / s
     /// </summary>
@@ -21,10 +29,12 @@ public class Engine : MonoBehaviour
     bool driftInput = false;
     float steerInput = 0;
     Rigidbody rb;
+    float currentSteerAngle = 0;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
     }
     void UpdateSpeedometer() => speedometer.SetText($"{ Mathf.Round(currentSpeed /  1000 * 3600)} km/h");
     void Brake(float value)
@@ -86,11 +96,54 @@ public class Engine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool goingForward = Vector3.Dot(rb.velocity, transform.forward) > 0;
+        if (rb.velocity.magnitude < speedToConsiderStationary)
+        {
+            if (brakeInput && gasInput)
+            {
+                Brake(brakeTorque);
+                Motor(forwardTorque);
+            }
+            else if (brakeInput)
+            {
+                Brake(0);
+                Motor(-backwardTorque);
+            }
+            else if (gasInput)
+            {
+                Brake(0);
+                Motor(forwardTorque);
+            }
+            else
+            {
+                Brake(0);
+                Motor(0);
+            }
+        }
+        else if (goingForward)
+        {
+            Brake(brakeInput ? brakeTorque : 0);
+            Motor(gasInput ? forwardTorque : 0);
+        }
+        else
+        {
+            Brake(gasInput ? brakeTorque : 0);
+            Motor(brakeInput ? -backwardTorque : 0);
+        }
+
+        float slope = (minSteerAngle - maxSteerAngle) / minSteerAngleSpeed;
+        float steerAngle = slope * Mathf.Clamp(currentSpeed, 0, minSteerAngleSpeed) + maxSteerAngle;
+        float desiredSteerAngle = steerInput * steerAngle;
+        float deltaAngle = steerSpeed * Time.deltaTime;
+        currentSteerAngle = Mathf.MoveTowards(currentSteerAngle, desiredSteerAngle, deltaAngle);
+        Steer(currentSteerAngle);
+
+
+    }
+    private void FixedUpdate()
+    {
         currentSpeed = rb.velocity.magnitude;
         UpdateSpeedometer();
-        Brake(brakeInput ? 20000 : 0);
-        Motor(gasInput ? 5000 : 0);
-        Steer(steerInput * 40);
         rb.AddForce(-rb.velocity * drag);
     }
 }

@@ -39,6 +39,7 @@ public class Engine : MonoBehaviour
     [SerializeField] float fadeSpeed = 1;
     [SerializeField] float brakeSoundTreshold = 5;
     [SerializeField] float crashForceTreshold = 100;
+    [SerializeField] float hopYSpeed = 100f;
 
     /// <summary>
     /// Current forward speed in m / s
@@ -51,6 +52,7 @@ public class Engine : MonoBehaviour
     float steerInput = 0;
     Rigidbody rb;
     float currentSteerAngle = 0;
+    bool GoingForward => Vector3.Dot(rb.velocity, transform.forward) > 0;
 
     private void Awake()
     {
@@ -112,7 +114,12 @@ public class Engine : MonoBehaviour
     public void OnDrift(InputAction.CallbackContext context)
     {
         if (context.started)
+        {
             driftInput = true;
+            if (!GoingForward) return;
+
+            rb.velocity += Vector3.up * hopYSpeed;
+        }
 
         else if (context.canceled)
             driftInput = false;
@@ -121,7 +128,6 @@ public class Engine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool goingForward = Vector3.Dot(rb.velocity, transform.forward) > 0;
         if (rb.velocity.magnitude < speedToConsiderStationary)
         {
             if (brakeInput && gasInput)
@@ -146,7 +152,7 @@ public class Engine : MonoBehaviour
                 Motor(0);
             }
         }
-        else if (goingForward)
+        else if (GoingForward)
         {
             Brake(brakeInput ? brakeTorque : 0);
             Motor(gasInput ? forwardTorque : 0);

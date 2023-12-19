@@ -13,6 +13,7 @@ public class Ragdoll : MonoBehaviour
     Collider[] colliders;
     Animator animator;
     NavMeshAgent agent;
+    PedestrianBehaviourTree pbTree;
     public bool IsRagdolling { get; private set; } = false;
 
     private void Awake()
@@ -33,6 +34,7 @@ public class Ragdoll : MonoBehaviour
 
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        pbTree = GetComponent<PedestrianBehaviourTree>();
     }
 
     [ContextMenu("Ragdoll")]
@@ -42,6 +44,7 @@ public class Ragdoll : MonoBehaviour
         IsRagdolling = true;
         animator.enabled = false;
         agent.enabled = false;
+        pbTree.enabled = false;
         foreach (var rigidbody in rigidbodies)
             rigidbody.isKinematic = false;
 

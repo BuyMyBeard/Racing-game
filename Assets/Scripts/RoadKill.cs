@@ -13,7 +13,15 @@ public class RoadKill : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var hits = rb.SweepTestAll(rb.velocity, rb.velocity.magnitude * Time.fixedDeltaTime, QueryTriggerInteraction.Collide);
+        var hits = rb.SweepTestAll(rb.velocity, rb.velocity.magnitude * Time.fixedDeltaTime * 70, QueryTriggerInteraction.Collide);
+        foreach (var hit in hits)
+        {
+            if (hit.collider.TryGetComponent(out PedestrianBehaviourTree pbt))
+            {
+                pbt.blackboard["isAboutToBeHit"] = true;
+            }
+        }
+        hits = rb.SweepTestAll(rb.velocity, rb.velocity.magnitude * Time.fixedDeltaTime, QueryTriggerInteraction.Collide);
         foreach (var hit in hits)
         {
             if (hit.collider.TryGetComponent(out Ragdoll ragdoll))

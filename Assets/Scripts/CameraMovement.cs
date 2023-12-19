@@ -66,7 +66,7 @@ public class CameraMovement : MonoBehaviour
         // Quaternion * Quaternion is the same as applying rotation from second to first
         Quaternion cameraRotation = followTarget.transform.localRotation *= Quaternion.AngleAxis(lookInput.x * appliedSens * Time.deltaTime, Vector3.up);
 
-        cameraRotation *= Quaternion.AngleAxis(lookInput.y * appliedSens * Time.deltaTime, Vector3.right);
+        cameraRotation *= Quaternion.AngleAxis(-lookInput.y * appliedSens * Time.deltaTime, Vector3.right);
 
         Vector3 cameraAngles = cameraRotation.eulerAngles;
 
@@ -109,5 +109,10 @@ public class CameraMovement : MonoBehaviour
     public void SyncFollowTarget()
     {
         followTarget.position = transform.position + Vector3.up * followTargetVerticalOffset;
+    }
+
+    public void ResetRotation()
+    {
+        followTarget.transform.rotation = transform.rotation * Quaternion.Euler(30, 0, 0);
     }
 }

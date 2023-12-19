@@ -164,6 +164,5 @@ namespace PathCreation.Examples {
                 meshRenderer.sharedMaterials[0].mainTextureScale = new Vector3 (textureTiling.x, textureTiling.y);
             }
         }
-
     }
 }

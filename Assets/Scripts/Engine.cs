@@ -39,6 +39,7 @@ public class Engine : MonoBehaviour
     [SerializeField] float fadeSpeed = 1;
     [SerializeField] float brakeSoundTreshold = 5;
     [SerializeField] float crashForceTreshold = 100;
+    [SerializeField] float hopYSpeed = 100f;
 
     /// <summary>
     /// Current forward speed in m / s
@@ -48,14 +49,20 @@ public class Engine : MonoBehaviour
     bool brakeInput = false;
     bool driftInput = false;
     bool isBraking = false;
+    bool isRevvingEngine = false;
     float steerInput = 0;
     Rigidbody rb;
+    CheckpointManager checkpointManager;
+    CameraMovement cameraMovement;
     float currentSteerAngle = 0;
+    bool GoingForward => Vector3.Dot(rb.velocity, transform.forward) > 0;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
+        checkpointManager = FindObjectOfType<CheckpointManager>();
+        if (checkpointManager == null) Debug.Log("Can't find Checkpoint Manager");
+        cameraMovement = GetComponent<CameraMovement>();
     }
     void UpdateSpeedometer() => speedometer.SetText($"{ Mathf.Round(currentSpeed /  1000 * 3600)} km/h");
     void Brake(float value)
@@ -112,16 +119,26 @@ public class Engine : MonoBehaviour
     public void OnDrift(InputAction.CallbackContext context)
     {
         if (context.started)
+        {
             driftInput = true;
+            if (!GoingForward) return;
+
+            rb.velocity += Vector3.up * hopYSpeed;
+        }
 
         else if (context.canceled)
             driftInput = false;
     }
 
+    public void OnReset(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            Respawn();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        bool goingForward = Vector3.Dot(rb.velocity, transform.forward) > 0;
         if (rb.velocity.magnitude < speedToConsiderStationary)
         {
             if (brakeInput && gasInput)
@@ -129,34 +146,44 @@ public class Engine : MonoBehaviour
                 Brake(brakeTorque);
                 Motor(forwardTorque);
                 isBraking = true;
+                isRevvingEngine = true;
             }
             else if (brakeInput)
             {
                 Brake(0);
                 Motor(-backwardTorque);
+                isBraking = false;
+                isRevvingEngine = true;
             }
             else if (gasInput)
             {
                 Brake(0);
                 Motor(forwardTorque);
+                isBraking = false;
+                isRevvingEngine = true;
             }
             else
             {
                 Brake(0);
                 Motor(0);
+                isBraking = false;
+                isRevvingEngine = false;
             }
         }
-        else if (goingForward)
+        else if (GoingForward)
         {
             Brake(brakeInput ? brakeTorque : 0);
             Motor(gasInput ? forwardTorque : 0);
             isBraking = brakeInput;
+            isRevvingEngine = gasInput;
         }
         else
         {
             Brake(gasInput ? brakeTorque : 0);
             Motor(brakeInput ? -backwardTorque : 0);
             isBraking = gasInput;
+            isRevvingEngine = brakeInput;
+
         }
 
         float slope = (minSteerAngle - maxSteerAngle) / minSteerAngleSpeed;
@@ -179,28 +206,46 @@ public class Engine : MonoBehaviour
     {
         float currentRPM = (Mathf.Abs(backLeft.rpm) + Mathf.Abs(backRight.rpm)) / 2; 
         bool wheelsGrounded = frontLeft.isGrounded || frontRight.isGrounded || backLeft.isGrounded || backRight.isGrounded;
-        if (currentRPM < accelerationSoundRPMTreshold)
+        if (currentRPM < accelerationSoundRPMTreshold && !isRevvingEngine)
         {
             accelerationAudioSource.mute = true;
             idleAudioSource.volume = Mathf.MoveTowards(idleAudioSource.volume, 1, Time.deltaTime * fadeSpeed);
-            brakeAudioSource.mute = !(isBraking && wheelsGrounded && currentSpeed > brakeSoundTreshold);
+            brakeAudioSource.mute = !(isBraking && wheelsGrounded && (currentSpeed > brakeSoundTreshold || isRevvingEngine));
         }
         else
         {
             accelerationAudioSource.mute = false;
-            idleAudioSource.volume = Mathf.MoveTowards(idleAudioSource.volume, 0, Time.deltaTime * fadeSpeed);
 
-            accelerationAudioSource.volume = Mathf.Clamp(currentRPM * volumeFactor, .25f, .75f);
-            accelerationAudioSource.pitch = Mathf.Clamp(currentRPM * pitchFactor, minPitch, maxPitch);
+            if (isRevvingEngine)
+            {
+                accelerationAudioSource.volume = Mathf.Clamp(currentRPM * volumeFactor, .25f, .75f);
+                accelerationAudioSource.pitch = Mathf.Clamp(currentRPM * pitchFactor, minPitch, maxPitch);
+                idleAudioSource.volume = Mathf.MoveTowards(idleAudioSource.volume, .5f, Time.deltaTime * fadeSpeed);
+            }
+            else
+            {
+                accelerationAudioSource.volume = 0;
+                idleAudioSource.volume = Mathf.MoveTowards(idleAudioSource.volume, 1, Time.deltaTime * fadeSpeed);
+            }
             brakeAudioSource.mute = true;
         }
     }
-    AudioSource audioSource;
     private void OnCollisionEnter(Collision collision)
     {
         float force = collision.impulse.magnitude / Time.fixedDeltaTime;
         Debug.Log(force);
         if (force > crashForceTreshold)
             crashAudioSource.Play();
+    }
+
+    public void Respawn()
+    {
+        Transform respawnPosition = checkpointManager.CurrentRespawnPosition;
+        transform.SetPositionAndRotation(respawnPosition.position, respawnPosition.rotation);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        backLeft.motorTorque = 0;
+        backRight.motorTorque = 0;
+        cameraMovement.ResetRotation();
     }
 }

@@ -317,7 +317,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583812977}
-  m_LocalRotation: {x: -0.21990955, y: -0, z: 0, w: 0.9755203}
+  m_LocalRotation: {x: -0.22975294, y: -0, z: 0, w: 0.973249}
   m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -809,7 +809,12 @@ PrefabInstance:
     - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1479367694387864464, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -854,7 +859,12 @@ PrefabInstance:
     - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5562772321017750760, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -869,17 +879,17 @@ PrefabInstance:
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.6386127
+      value: 462.2
       objectReference: {fileID: 0}
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
+      value: 61.82
       objectReference: {fileID: 0}
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.16
+      value: -213.1
       objectReference: {fileID: 0}
     - target: {fileID: 6948587442945639655, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -929,7 +939,12 @@ PrefabInstance:
     - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7666005938386213947, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -954,7 +969,12 @@ PrefabInstance:
     - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8013316820124944228, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -1184,6 +1204,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 54c041f5-dbab-499a-af5a-6fb8fa8b2972
     m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7014874458286654046}
+        m_TargetAssemblyTypeName: Engine, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 38e2408e-06e6-496f-bd5d-ecfccf9c7982
+    m_ActionName: Player/Reset[/Keyboard/r,/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -1203,8 +1239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 32568277}
   catchUpSpeed: 15
-  camMinClamp: -25.5
-  camMaxClamp: 33.3
+  camMinClamp: -40
+  camMaxClamp: 50
   driftSpeed: 20
   easeInTime: 3
   driftTimer: 1
@@ -1236,7 +1272,7 @@ MonoBehaviour:
   brakeTorque: 5000
   drag: 150
   maxSteerAngle: 40
-  minSteerAngle: 5
+  minSteerAngle: 10
   minSteerAngleSpeed: 60
   steerSpeed: 160
   speedToConsiderStationary: 0.5
@@ -1253,6 +1289,7 @@ MonoBehaviour:
   fadeSpeed: 1
   brakeSoundTreshold: 5
   crashForceTreshold: 1000000
+  hopYSpeed: 100
 --- !u!1 &4451745708332410350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8013316820124944228, guid: e9be6b9d71ce20345b55b654f6eca5d9,

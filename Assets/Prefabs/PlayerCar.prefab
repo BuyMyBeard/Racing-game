@@ -1253,6 +1253,7 @@ MonoBehaviour:
   fadeSpeed: 1
   brakeSoundTreshold: 5
   crashForceTreshold: 1000000
+  hopYSpeed: 100
 --- !u!1 &4451745708332410350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8013316820124944228, guid: e9be6b9d71ce20345b55b654f6eca5d9,

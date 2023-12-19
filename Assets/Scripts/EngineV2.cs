@@ -98,9 +98,9 @@ public class EngineV2 : MonoBehaviour
         SteerAngle = Mathf.MoveTowards(SteerAngle, maxSteerAngle * steerInput, steerSpeed);
 
         internalVelocity *= dragCurve.Evaluate(ivTVal);
-        
 
-        currentMoveVelocity += internalVelocity;
+        currentMoveVelocity.y = rb.velocity.y;
+        currentMoveVelocity = internalVelocity;
         rb.velocity = currentMoveVelocity;
     }
 

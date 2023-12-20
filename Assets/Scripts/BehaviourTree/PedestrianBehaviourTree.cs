@@ -13,23 +13,28 @@ public class WaitUntilCarClose : TaskBT
     int curDestination = 0;
     public WaitUntilCarClose(Dictionary<string, bool> blackboard, NavMeshAgent agent, float distanceThreshold)
     {
+        this.blackboard = blackboard;
         Agent = agent;
         Self = agent.transform;
         DistanceThreshold = distanceThreshold;
         var patrolPointsParent = GameObject.FindGameObjectWithTag("NPCPatrolPoints");
         List<Transform> patrolPoints = new List<Transform>();
         for (int i = 0; i < patrolPointsParent.transform.childCount; i++)
-            patrolPointsParent.transform.GetChild(i);
+            patrolPoints.Add(patrolPointsParent.transform.GetChild(i));
         destinations = patrolPoints;
-        this.blackboard = blackboard;
-        agent.destination = destinations[0].position;
+        if (destinations.Count == 0)
+        {
+            Debug.Log("No destinations found !");
+            return;
+        }
+        Agent.destination = destinations[0].position;
     }
     public override TaskState Execute()
     {
-        if (Vector3.Distance(Agent.destination, Self.position) < DistanceThreshold)
-        {
-            Agent.destination = destinations[(++curDestination) % destinations.Count].position;
-        }
+        //if (Vector3.Distance(Agent.destination, Self.position) < DistanceThreshold)
+        //{
+        //    Agent.destination = destinations[(++curDestination) % destinations.Count].position;
+        //}
         return blackboard["isAboutToBeHit"] ? TaskState.Success : TaskState.Running;
     }
 }

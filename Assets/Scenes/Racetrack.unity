@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 2
@@ -3937,6 +3937,11 @@ PrefabInstance:
       propertyPath: speedometer
       value: 
       objectReference: {fileID: 1506153731}
+    - target: {fileID: 8945917633653622725, guid: 79c98aa6c49023646b0cacd7731823c0,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79c98aa6c49023646b0cacd7731823c0, type: 3}
 --- !u!43 &1250980267
@@ -6454,6 +6459,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2039036803972772658, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039036804160395445, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2039036804160395446, guid: ac651b6dc517920459d119ac9eb599fc,
         type: 3}
       propertyPath: m_Mesh
@@ -6484,6 +6499,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 218150750}
+    - target: {fileID: 2039036804576901681, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2039036804587329384, guid: ac651b6dc517920459d119ac9eb599fc,
         type: 3}
       propertyPath: m_Mesh
@@ -6514,6 +6534,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1230638485}
+    - target: {fileID: 2039036805334883073, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2039036805334883074, guid: ac651b6dc517920459d119ac9eb599fc,
         type: 3}
       propertyPath: m_Mesh
@@ -6529,6 +6554,26 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1020080062}
+    - target: {fileID: 2039036805451733770, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039036805485137803, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039036805673859519, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039036805675343370, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2039036805675343372, guid: ac651b6dc517920459d119ac9eb599fc,
         type: 3}
       propertyPath: m_Mesh
@@ -6544,6 +6589,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1706373371}
+    - target: {fileID: 2039036806019570514, guid: ac651b6dc517920459d119ac9eb599fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2790218369533718838, guid: ac651b6dc517920459d119ac9eb599fc,
         type: 3}
       propertyPath: m_Mesh

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,10 +20,17 @@ public class EngineV2 : MonoBehaviour
     [SerializeField] float brakeMultiplier = 0.97f;
     [SerializeField] float maxSteerAngle = 60f;
     [SerializeField] float speedToConsiderStationary = .01f;
+    [SerializeField] float groundCheckDistance;
+    [SerializeField] float wheelCloseEnoughToGroundDistance = 0.3f;
+    [SerializeField] float terminalVelocity = -30;
     [SerializeField] TextMeshProUGUI speedometer;
 
     [SerializeField] WheelCollider frontLeftWheel;
     [SerializeField] WheelCollider frontRightWheel;
+    [SerializeField] WheelCollider backLeftWheel;
+    [SerializeField] WheelCollider backRightWheel;
+
+    WheelCollider[] wheels;
 
     float SteerAngle
     {
@@ -40,6 +49,8 @@ public class EngineV2 : MonoBehaviour
     Vector3 currentMoveVelocity;
     Vector3 internalRotation;
     Vector3 currentRotation;
+    float airTimer;
+    float gravityYSpeed;
 
     bool gasInput = false;
     bool brakeInput = false;
@@ -48,6 +59,7 @@ public class EngineV2 : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        wheels = new WheelCollider[] { frontLeftWheel, frontRightWheel, backLeftWheel, backRightWheel };
     }
     public void OnGas(InputAction.CallbackContext context)
     {
@@ -80,28 +92,64 @@ public class EngineV2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentMoveVelocity = Vector3.zero;
-        if (gasInput)
+        if (frontLeftWheel.isGrounded && frontRightWheel.isGrounded)
         {
-            if (internalVelocity.magnitude < maxSpeed)
+            if (gasInput)
             {
-                accelerationTVal += Time.deltaTime / accelerationDuration;
-                internalVelocity = accelerationCurve.Evaluate(accelerationTVal) * maxSpeed * transform.forward;
+                if (internalVelocity.magnitude < maxSpeed)
+                {
+                    accelerationTVal += Time.fixedDeltaTime / accelerationDuration;
+                    internalVelocity = accelerationCurve.Evaluate(accelerationTVal) * maxSpeed * Vector3.forward;
+                }
             }
-        }
-        
-        if (brakeInput)
-        {
-            internalVelocity *= brakeMultiplier;
-        }
 
-        SteerAngle = Mathf.MoveTowards(SteerAngle, maxSteerAngle * steerInput, steerSpeed);
+            if (brakeInput)
+            {
+                internalVelocity *= brakeMultiplier;
+            }
+
+            SteerAngle = Mathf.MoveTowards(SteerAngle, maxSteerAngle * steerInput, steerSpeed);
+
+        }
 
         internalVelocity *= dragCurve.Evaluate(ivTVal);
 
-        currentMoveVelocity.y = rb.velocity.y;
         currentMoveVelocity = internalVelocity;
-        rb.velocity = currentMoveVelocity;
+        HandleGravity();
+        currentMoveVelocity.y = gravityYSpeed;
+        transform.Translate(currentMoveVelocity);
+        HandleRotation();
+    }
+    void HandleGravity()
+    {
+        Debug.DrawLine(transform.position + groundCheckDistance * Vector3.up, transform.position + Vector3.up * -groundCheckDistance, Color.red);
+        if (!Physics.Raycast(transform.position + groundCheckDistance * Vector3.up, -Vector3.up, out RaycastHit rh, groundCheckDistance))
+        {
+            airTimer += Time.fixedDeltaTime;
+            gravityYSpeed = Math.Max(Physics.gravity.y * airTimer, terminalVelocity) * Time.fixedDeltaTime;
+        } else
+        {
+            airTimer = 0;
+            gravityYSpeed = 0;
+        }
+    }
+
+    void HandleRotation()
+    {
+        
+        foreach (var wheel in wheels)
+        {
+            Vector3 wheelOffset = wheel.transform.position - transform.position;
+            wheelOffset.y = 0;
+            wheelOffset.Normalize();
+            Physics.Raycast(wheel.transform.position, -Vector3.up, out RaycastHit rh, groundCheckDistance);
+            Debug.DrawLine(wheel.transform.position, wheel.transform.position - Vector3.up * groundCheckDistance, Color.red);
+             float diffToGround = Mathf.Abs(rh.distance - wheel.radius);
+            if (diffToGround > wheelCloseEnoughToGroundDistance)
+            {
+                transform.Rotate(wheelOffset * Mathf.Sign(rh.distance - wheel.radius) * diffToGround);
+            }
+        }
     }
 
     // Update is called once per frame

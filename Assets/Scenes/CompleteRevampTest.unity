@@ -350,12 +350,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357696833}
-  m_LocalRotation: {x: 0.1700356, y: 0.000000029802322, z: 0.006354302, w: 0.9854175}
-  m_LocalPosition: {x: 0.03, y: 2.48, z: -4.7}
+  m_LocalRotation: {x: 0.17003562, y: 0.000000029802322, z: 0.006354302, w: 0.9854175}
+  m_LocalPosition: {x: 0.02999872, y: 2.48, z: -4.7000027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3646954060191864013}
+  m_Father: {fileID: 1210351989}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.579, y: 0.131, z: 0.762}
 --- !u!1 &397632465
@@ -391,7 +391,7 @@ Transform:
   m_Children:
   - {fileID: 2146684282}
   m_Father: {fileID: 3646954060191864013}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &397632467
 MonoBehaviour:
@@ -543,6 +543,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pete
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d1392b07a89ed67479db76c58c91fa02,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1392b07a89ed67479db76c58c91fa02, type: 3}
@@ -931,9 +936,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 357696838}
   m_Father: {fileID: 3646954060191864013}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1506153729
 GameObject:
@@ -1282,6 +1288,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 54c041f5-dbab-499a-af5a-6fb8fa8b2972
     m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38e2408e-06e6-496f-bd5d-ecfccf9c7982
+    m_ActionName: Player/Reset[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -1713,7 +1723,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3646954060191864013}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1461097356978177608
 Transform:
@@ -1841,6 +1851,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sophie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632020765018885307, guid: daf2336dcb5918f409a47a4813819116,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3444409686468023809, guid: daf2336dcb5918f409a47a4813819116,
         type: 3}
@@ -1987,11 +2002,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4167876712687193719}
   m_LocalRotation: {x: -0, y: 0.7201891, z: -0, w: 0.6937779}
-  m_LocalPosition: {x: 4.6386127, y: -0.00000047683716, z: -46.16}
+  m_LocalPosition: {x: 4.6386127, y: 4.065, z: -46.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 357696838}
   - {fileID: 919591777932245276}
   - {fileID: 8529668490406606106}
   - {fileID: 9213742058438015785}
@@ -2328,7 +2342,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3646954060191864013}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8945917634831431013
 Rigidbody:
@@ -2341,8 +2355,8 @@ Rigidbody:
   m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -2407,11 +2421,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxSpeed: 200
-  steerSpeed: 1
+  steerSpeed: 5
   accelerationDuration: 6
   brakeMultiplier: 0.99
   maxSteerAngle: 40
   speedToConsiderStationary: 0.01
+  groundCheckDistance: 0
   speedometer: {fileID: 1506153731}
   frontLeftWheel: {fileID: 647352164}
   frontRightWheel: {fileID: 1522405584}
@@ -2430,5 +2445,5 @@ Transform:
   - {fileID: 605079313445751077}
   - {fileID: 1201268342}
   m_Father: {fileID: 3646954060191864013}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

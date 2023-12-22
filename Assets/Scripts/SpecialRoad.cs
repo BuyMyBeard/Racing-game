@@ -69,11 +69,14 @@ public class SpecialRoad : MonoBehaviour
     private void Update()
     {
         var verts = meshFilter.sharedMesh.vertices;
+        Vector3 vertex;
+        float heightBy2;
+        float widthBy2;
         for (int i = 0; i < verts.Length; i++)
         {
-            Vector3 vertex = verts[i];
-            float heightBy2 = height / 2;
-            float widthBy2 = width / 2;
+            vertex = verts[i];
+            heightBy2 = height / 2;
+            widthBy2 = width / 2;
             vertex.y = Mathf.Sin(Time.realtimeSinceStartup + vertex.z + vertex.x) * oscBaseAmplitude * ((widthBy2 - Mathf.Abs(vertex.x)) / widthBy2);
             verts[i] = vertex;
         }

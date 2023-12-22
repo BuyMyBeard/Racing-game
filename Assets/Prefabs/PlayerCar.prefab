@@ -725,7 +725,7 @@ PrefabInstance:
     - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.29
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -735,17 +735,17 @@ PrefabInstance:
     - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 314971172518125230, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SuspensionSpring.targetPosition
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1479367694387864464, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -790,7 +790,7 @@ PrefabInstance:
     - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.29
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -800,17 +800,17 @@ PrefabInstance:
     - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5223429399262309916, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SuspensionSpring.targetPosition
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5562772321017750760, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -880,7 +880,7 @@ PrefabInstance:
     - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.29
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -890,17 +890,17 @@ PrefabInstance:
     - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7161689254267407433, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SuspensionSpring.targetPosition
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7666005938386213947, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -920,7 +920,7 @@ PrefabInstance:
     - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.29
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -930,17 +930,17 @@ PrefabInstance:
     - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_ForwardFriction.m_Stiffness
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7887936941379631419, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
       propertyPath: m_SuspensionSpring.targetPosition
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8013316820124944228, guid: e9be6b9d71ce20345b55b654f6eca5d9,
         type: 3}
@@ -1330,6 +1330,80 @@ MonoBehaviour:
   brakeSoundTreshold: 5
   crashForceTreshold: 1000000
   hopYSpeed: 100
+--- !u!114 &6581071647089006181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167876713612819671}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad38ef70e49ed7646bfeb7c76d0e4906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dragCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.97429866
+      inSlope: 0.07814589
+      outSlope: 0.07814589
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09166667
+    - serializedVersion: 3
+      time: 0.9958191
+      value: 0.9976425
+      inSlope: -0.00021128776
+      outSlope: -0.00021128776
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxSpeed: 200
+  steerSpeed: 5
+  accelerationDuration: 6
+  brakeMultiplier: 0.99
+  maxSteerAngle: 40
+  speedToConsiderStationary: 0.01
+  groundCheckDistance: 1
+  wheelCloseEnoughToGroundDistance: 0.3
+  terminalVelocity: -1
+  speedometer: {fileID: 0}
+  frontLeftWheel: {fileID: 3571825632753446595}
+  frontRightWheel: {fileID: 6245862179747036196}
+  backLeftWheel: {fileID: 4577160015536528305}
+  backRightWheel: {fileID: 1913919128984128662}
 --- !u!1 &4451745708332410350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8013316820124944228, guid: e9be6b9d71ce20345b55b654f6eca5d9,

@@ -5,18 +5,18 @@ using UnityEngine.AI;
 public class WaitUntilCarClose : TaskBT
 {
     Dictionary<string, bool> blackboard;
-    Transform Self { get; }
     NavMeshAgent Agent { get; }
     float DistanceThreshold { get; }
+    Animator Animator { get; }
 
     List<Transform> destinations;
     int curDestination = 0;
-    public WaitUntilCarClose(Dictionary<string, bool> blackboard, NavMeshAgent agent, float distanceThreshold)
+    public WaitUntilCarClose(Dictionary<string, bool> blackboard, NavMeshAgent agent, float distanceThreshold, Animator animator)
     {
         this.blackboard = blackboard;
         Agent = agent;
-        Self = agent.transform;
         DistanceThreshold = distanceThreshold;
+        Animator = animator;
         var patrolPointsParent = GameObject.FindGameObjectWithTag("NPCPatrolPoints");
         List<Transform> patrolPoints = new List<Transform>();
         for (int i = 0; i < patrolPointsParent.transform.childCount; i++)
@@ -31,10 +31,14 @@ public class WaitUntilCarClose : TaskBT
     }
     public override TaskState Execute()
     {
-        //if (Vector3.Distance(Agent.destination, Self.position) < DistanceThreshold)
-        //{
-        //    Agent.destination = destinations[(++curDestination) % destinations.Count].position;
-        //}
+        Animator.SetBool("IsWalking", true);
+        if (Vector3.Distance(Agent.destination, Agent.transform.position) < DistanceThreshold)
+        {
+            curDestination = (curDestination + 1) % destinations.Count;
+            var newDestination = destinations[curDestination];
+            Debug.Log($"Changing destination for {Agent.gameObject.name} to destination {newDestination.name}");
+            Agent.destination = newDestination.position;
+        }
         return blackboard["isAboutToBeHit"] ? TaskState.Success : TaskState.Running;
     }
 }
@@ -70,20 +74,21 @@ public class RunAwayInFear : TaskBT
 [RequireComponent(typeof(NavMeshAgent))]
 public class PedestrianBehaviourTree : MonoBehaviour
 {
-    const float DISTANCE_THRESHOLD = 0.05f;
+    const float DISTANCE_THRESHOLD = 0.1f;
     private Node rootBT;
     public Dictionary<string, bool> blackboard = new Dictionary<string, bool>();
     private void Awake()
     {
         blackboard["isAboutToBeHit"] = false;
+        Animator animator = GetComponent<Animator>();
 
         TaskBT[] tasks0 = new TaskBT[]
         {
-            new WaitUntilCarClose(blackboard, GetComponent<NavMeshAgent>(), DISTANCE_THRESHOLD)
+            new WaitUntilCarClose(blackboard, GetComponent<NavMeshAgent>(), DISTANCE_THRESHOLD, animator)
         };
         TaskBT[] tasks1 = new TaskBT[]
         {
-            new RunAwayInFear(blackboard, GetComponent<Animator>())
+            new RunAwayInFear(blackboard, animator)
         };
 
         TaskNode waitToGetHitNode = new TaskNode("waitToGetHit", tasks0);

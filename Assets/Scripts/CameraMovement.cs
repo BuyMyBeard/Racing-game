@@ -60,7 +60,7 @@ public class CameraMovement : MonoBehaviour
     }
     void Update()
     {
-        followTarget.position = transform.position;
+        followTarget.position = transform.position + Vector3.up * followTargetVerticalOffset;
         float appliedSens = GamepadActive ? controllerSensitivity : mouseSensitivity;
 
         // Quaternion * Quaternion is the same as applying rotation from second to first

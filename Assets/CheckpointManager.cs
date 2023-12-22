@@ -14,9 +14,7 @@ public class CheckpointManager : MonoBehaviour
     int currentCheckpoint = -1;
     int currentLap = 1;
     [SerializeField] TextMeshProUGUI lapCounter;
-
     public Transform CurrentRespawnPosition => currentCheckpoint == -1 ? finishLine.RespawnPosition : checkpoints[currentCheckpoint].RespawnPosition;
-
     private void Start()
     {
         UpdateLapCounter();

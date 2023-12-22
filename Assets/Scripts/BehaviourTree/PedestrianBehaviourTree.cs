@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,7 +18,7 @@ public class WaitUntilCarClose : TaskBT
         Agent = agent;
         DistanceThreshold = distanceThreshold;
         Animator = animator;
-        var patrolPointsParent = GameObject.FindGameObjectWithTag("NPCPatrolPoints");
+        var patrolPointsParent = Agent.transform.parent.GetChildByName("NPCPatrolPoints");
         List<Transform> patrolPoints = new List<Transform>();
         for (int i = 0; i < patrolPointsParent.transform.childCount; i++)
             patrolPoints.Add(patrolPointsParent.transform.GetChild(i));
@@ -74,17 +75,22 @@ public class RunAwayInFear : TaskBT
 [RequireComponent(typeof(NavMeshAgent))]
 public class PedestrianBehaviourTree : MonoBehaviour
 {
-    const float DISTANCE_THRESHOLD = 0.1f;
+    [SerializeField] bool isMale;
+    [SerializeField] float speed = 2f;
+    const float DISTANCE_THRESHOLD = 0.5f;
     private Node rootBT;
     public Dictionary<string, bool> blackboard = new Dictionary<string, bool>();
     private void Awake()
     {
-        blackboard["isAboutToBeHit"] = false;
         Animator animator = GetComponent<Animator>();
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        blackboard["isAboutToBeHit"] = false;
+        animator.SetBool("IsMale", isMale);
+        agent.speed = speed;
 
         TaskBT[] tasks0 = new TaskBT[]
         {
-            new WaitUntilCarClose(blackboard, GetComponent<NavMeshAgent>(), DISTANCE_THRESHOLD, animator)
+            new WaitUntilCarClose(blackboard, agent, DISTANCE_THRESHOLD, animator)
         };
         TaskBT[] tasks1 = new TaskBT[]
         {
